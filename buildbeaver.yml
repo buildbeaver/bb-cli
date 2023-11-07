@@ -1,0 +1,17 @@
+version: "0.2"
+
+jobs:
+  - name: generate-jobs
+    docker:
+      image: golang:1.17.3
+      pull: if-not-exists
+      shell: /bin/bash
+    steps:
+      - name: compile
+        commands: |
+          . build/scripts/lib/go-env.sh        
+          cd build && go build -mod=vendor -o "${GOBIN}/dynamic-build" .
+      - name: execute
+        commands: |
+          . build/scripts/lib/go-env.sh
+          "${GOBIN}/dynamic-build"
