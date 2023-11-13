@@ -10,7 +10,7 @@ if [ ! "$(which git)" ]; then
 fi
 
 GIT_DESCRIBE="$(git describe --long --tags --always)"
-if [[ ! $GIT_DESCRIBE =~ ^[0-9+].[0-9+].[0-9+].*$ ]]; then
+if [[ ! $GIT_DESCRIBE =~ ^v?[0-9+].[0-9+].[0-9+].*$ ]]; then
   echo "Unknown tag format."
   exit 1
 fi
