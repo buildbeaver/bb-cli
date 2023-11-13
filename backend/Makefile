@@ -12,10 +12,6 @@ generate: generate-wire
 
 generate-wire:
 	@echo "--- generate wire ---"
-#	cd server/app && wire
-#	cd server/app/server_test && wire
-#	cd runner/app && wire
-#	cd runner/app/runner_test && wire
 	cd bb/app && wire
 
 build:
