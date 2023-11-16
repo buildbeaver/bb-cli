@@ -8,7 +8,7 @@ require (
 	github.com/benbjohnson/clock v1.3.0
 	github.com/bmatcuk/doublestar/v2 v2.0.1
 	github.com/chelnak/ysmrr v0.3.1-0
-	github.com/docker/docker v20.10.13+incompatible
+	github.com/docker/docker v24.0.7+incompatible
 	github.com/doug-martin/goqu/v9 v9.18.0
 	github.com/fatih/structs v1.1.0
 	github.com/go-chi/chi/v5 v5.0.7
@@ -30,7 +30,7 @@ require (
 	github.com/mattn/go-isatty v0.0.20
 	github.com/mattn/go-sqlite3 v1.14.10
 	github.com/mitchellh/hashstructure/v2 v2.0.2
-	github.com/moby/moby v20.10.23+incompatible
+	github.com/moby/moby v24.0.7+incompatible
 	github.com/pkg/errors v0.9.1
 	github.com/psanford/memfs v0.0.0-20210214183328-a001468d78ef
 	github.com/sirupsen/logrus v1.9.0
@@ -52,7 +52,6 @@ require (
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v12 v12.0.0 // indirect
-	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/distribution/reference v0.5.0 // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
@@ -92,8 +91,6 @@ require (
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
-	google.golang.org/genproto v0.0.0-20220314164441-57ef72a4c106 // indirect
-	google.golang.org/grpc v1.45.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/ini.v1 v1.61.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

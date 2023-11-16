@@ -98,9 +98,6 @@ github.com/chelnak/ysmrr
 github.com/chelnak/ysmrr/pkg/animations
 github.com/chelnak/ysmrr/pkg/colors
 github.com/chelnak/ysmrr/pkg/tput
-# github.com/containerd/containerd v1.6.1
-## explicit; go 1.16
-github.com/containerd/containerd/errdefs
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
@@ -110,8 +107,7 @@ github.com/distribution/reference
 # github.com/docker/distribution v2.8.3+incompatible
 ## explicit
 github.com/docker/distribution/reference
-github.com/docker/distribution/registry/api/errcode
-# github.com/docker/docker v20.10.13+incompatible
+# github.com/docker/docker v24.0.7+incompatible
 ## explicit
 github.com/docker/docker/api
 github.com/docker/docker/api/types
@@ -251,10 +247,6 @@ github.com/golang-migrate/migrate/v4/source/iofs
 # github.com/golang/protobuf v1.5.2
 ## explicit; go 1.9
 github.com/golang/protobuf/proto
-github.com/golang/protobuf/ptypes
-github.com/golang/protobuf/ptypes/any
-github.com/golang/protobuf/ptypes/duration
-github.com/golang/protobuf/ptypes/timestamp
 # github.com/google/go-jsonnet v0.16.0
 ## explicit; go 1.13
 github.com/google/go-jsonnet
@@ -350,7 +342,7 @@ github.com/mitchellh/hashstructure/v2
 # github.com/mitchellh/mapstructure v1.3.3
 ## explicit; go 1.14
 github.com/mitchellh/mapstructure
-# github.com/moby/moby v20.10.23+incompatible
+# github.com/moby/moby v24.0.7+incompatible
 ## explicit
 github.com/moby/moby/client
 github.com/moby/moby/pkg/stdcopy
@@ -466,14 +458,6 @@ google.golang.org/appengine/internal/log
 google.golang.org/appengine/internal/remote_api
 google.golang.org/appengine/internal/urlfetch
 google.golang.org/appengine/urlfetch
-# google.golang.org/genproto v0.0.0-20220314164441-57ef72a4c106
-## explicit; go 1.15
-google.golang.org/genproto/googleapis/rpc/status
-# google.golang.org/grpc v1.45.0
-## explicit; go 1.14
-google.golang.org/grpc/codes
-google.golang.org/grpc/internal/status
-google.golang.org/grpc/status
 # google.golang.org/protobuf v1.28.0
 ## explicit; go 1.11
 google.golang.org/protobuf/encoding/prototext
@@ -503,9 +487,6 @@ google.golang.org/protobuf/reflect/protoregistry
 google.golang.org/protobuf/runtime/protoiface
 google.golang.org/protobuf/runtime/protoimpl
 google.golang.org/protobuf/types/descriptorpb
-google.golang.org/protobuf/types/known/anypb
-google.golang.org/protobuf/types/known/durationpb
-google.golang.org/protobuf/types/known/timestamppb
 # gopkg.in/ini.v1 v1.61.0
 ## explicit
 gopkg.in/ini.v1
