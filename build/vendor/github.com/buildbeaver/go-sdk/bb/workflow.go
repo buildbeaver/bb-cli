@@ -113,7 +113,7 @@ func (w *Workflow) start(wg *sync.WaitGroup) {
 }
 
 func (w *Workflow) statsUpdated() {
-	Log(LogLevelInfo, fmt.Sprintf("Stats updated notification received for workflow '%s'", w.GetName()))
+	Log(LogLevelDebug, fmt.Sprintf("Stats updated notification received for workflow '%s'", w.GetName()))
 
 	// Only update workflow status if it has been started; otherwise w.build is still nil
 	if w.isStarted {

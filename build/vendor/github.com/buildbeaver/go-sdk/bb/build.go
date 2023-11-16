@@ -108,7 +108,7 @@ func newBuild(
 		Description: "Default BB Dynamic API server URL",
 	}
 	openapiConfig.Servers = append(client.ServerConfigurations{server}, openapiConfig.Servers...)
-	Log(LogLevelInfo, fmt.Sprintf("Dynamic API Server URL: %s", serverURL))
+	Log(LogLevelDebug, fmt.Sprintf("Dynamic API Server URL: %s", serverURL))
 
 	// Create a separate HTTP client to configure; do not share HTTP clients between instances of Build
 	httpClient := &http.Client{}

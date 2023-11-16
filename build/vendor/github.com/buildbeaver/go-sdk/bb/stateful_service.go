@@ -53,10 +53,10 @@ func (s *StatefulService) Start() {
 		panic("start ")
 	}
 	s.started = true
-	s.log(LogLevelInfo, fmt.Sprintf("Starting '%s' service...", s.serviceName))
+	s.log(LogLevelDebug, fmt.Sprintf("Starting '%s' service...", s.serviceName))
 	go func() {
 		defer close(s.doneC)
-		s.log(LogLevelInfo, fmt.Sprintf("Started '%s' service", s.serviceName))
+		s.log(LogLevelDebug, fmt.Sprintf("Started '%s' service", s.serviceName))
 		s.fn()
 	}()
 }
@@ -69,8 +69,8 @@ func (s *StatefulService) Stop() {
 	if !s.started {
 		return
 	}
-	s.log(LogLevelInfo, fmt.Sprintf("Stopping '%s' service...", s.serviceName))
+	s.log(LogLevelDebug, fmt.Sprintf("Stopping '%s' service...", s.serviceName))
 	s.ctxCancel()
 	<-s.doneC
-	s.log(LogLevelInfo, fmt.Sprintf("Stopped '%s' service", s.serviceName))
+	s.log(LogLevelDebug, fmt.Sprintf("Stopped '%s' service", s.serviceName))
 }
