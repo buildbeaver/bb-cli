@@ -101,11 +101,9 @@ github.com/chelnak/ysmrr/pkg/tput
 # github.com/davecgh/go-spew v1.1.1
 ## explicit
 github.com/davecgh/go-spew/spew
-# github.com/distribution/reference v0.5.0
-## explicit; go 1.20
-github.com/distribution/reference
-# github.com/docker/distribution v2.8.3+incompatible
+# github.com/docker/distribution v2.8.1+incompatible
 ## explicit
+github.com/docker/distribution/digestset
 github.com/docker/distribution/reference
 # github.com/docker/docker v24.0.7+incompatible
 ## explicit
@@ -125,7 +123,9 @@ github.com/docker/docker/api/types/swarm/runtime
 github.com/docker/docker/api/types/time
 github.com/docker/docker/api/types/versions
 github.com/docker/docker/api/types/volume
+github.com/docker/docker/client
 github.com/docker/docker/errdefs
+github.com/docker/docker/pkg/stdcopy
 # github.com/docker/go-connections v0.4.0
 ## explicit
 github.com/docker/go-connections/nat
@@ -342,17 +342,12 @@ github.com/mitchellh/hashstructure/v2
 # github.com/mitchellh/mapstructure v1.3.3
 ## explicit; go 1.14
 github.com/mitchellh/mapstructure
-# github.com/moby/moby v24.0.7+incompatible
-## explicit
-github.com/moby/moby/client
-github.com/moby/moby/pkg/stdcopy
 # github.com/nathan-fiscaletti/consolesize-go v0.0.0-20220204101620-317176b6684d
 ## explicit
 github.com/nathan-fiscaletti/consolesize-go
 # github.com/opencontainers/go-digest v1.0.0
 ## explicit; go 1.13
 github.com/opencontainers/go-digest
-github.com/opencontainers/go-digest/digestset
 # github.com/opencontainers/image-spec v1.0.2
 ## explicit
 github.com/opencontainers/image-spec/specs-go
