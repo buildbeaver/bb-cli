@@ -1,6 +1,6 @@
 module github.com/buildbeaver/build
 
-go 1.17
+go 1.18
 
 require github.com/buildbeaver/go-sdk v0.0.2
 
