@@ -3,7 +3,7 @@ version: "0.2"
 jobs:
   - name: generate-jobs
     docker:
-      image: golang:1.17.3
+      image: golang:1.18.10
       pull: if-not-exists
       shell: /bin/bash
     steps:

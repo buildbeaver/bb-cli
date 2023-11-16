@@ -199,7 +199,7 @@ func (m *workflowManager) runWorkflows(build *Build) error {
 			}
 		} else {
 			// No set of workflows explicitly specified, so run all workflows
-			Log(LogLevelInfo, fmt.Sprintf("Starting all registered workflows..."))
+			Log(LogLevelDebug, fmt.Sprintf("Starting all registered workflows..."))
 			for _, workflow := range m.workflows {
 				count, err := m.startWorkflowAndDependencies(workflow)
 				if err != nil {
@@ -211,7 +211,7 @@ func (m *workflowManager) runWorkflows(build *Build) error {
 		if startedCount == 0 {
 			return fmt.Errorf("error: no workflows were started")
 		}
-		Log(LogLevelInfo, fmt.Sprintf("Started %d workflow(s).", startedCount))
+		Log(LogLevelDebug, fmt.Sprintf("Started %d workflow(s).", startedCount))
 		return nil // success
 	}()
 	if err != nil {
