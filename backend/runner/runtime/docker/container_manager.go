@@ -17,10 +17,10 @@ import (
 	"github.com/docker/docker/api/types/container"
 	"github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/api/types/network"
+	"github.com/docker/docker/client"
 	"github.com/docker/docker/errdefs"
+	"github.com/docker/docker/pkg/stdcopy"
 	"github.com/hashicorp/go-multierror"
-	"github.com/moby/moby/client"
-	"github.com/moby/moby/pkg/stdcopy"
 	"github.com/pkg/errors"
 
 	"github.com/buildbeaver/buildbeaver/common/logger"
