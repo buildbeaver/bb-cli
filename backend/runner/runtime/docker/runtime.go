@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/docker/docker/client"
 	"github.com/hashicorp/go-multierror"
-	"github.com/moby/moby/client"
 
 	"github.com/buildbeaver/buildbeaver/common/logger"
 	"github.com/buildbeaver/buildbeaver/common/models"

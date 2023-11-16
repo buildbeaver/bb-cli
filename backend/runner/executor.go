@@ -13,8 +13,8 @@ import (
 	"time"
 
 	"github.com/benbjohnson/clock"
+	"github.com/docker/docker/client"
 	"github.com/hashicorp/go-multierror"
-	"github.com/moby/moby/client"
 	"github.com/pkg/errors"
 
 	"github.com/buildbeaver/buildbeaver/common/dynamic_api"
