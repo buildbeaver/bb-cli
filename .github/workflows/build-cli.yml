@@ -25,13 +25,10 @@ jobs:
       with:
         fetch-depth: 0
 
-    - name: Git describe
-      run: git describe --long --tags --always
-
     - name: Set up Go
       uses: actions/setup-go@v4
       with:
-        go-version: 1.17.3
+        go-version: 1.18.10
         cache-dependency-path: backend/go.sum
 
     - name: Install wire
@@ -46,8 +43,16 @@ jobs:
     - name: Build
       run: make build
 
+    # See https://github.com/actions/upload-artifact#maintaining-file-permissions-and-case-sensitive-files
+    - name: Tar files for upload
+      run: |
+        filename=$(echo "bb_${{github.ref_name}}_${{runner.os}}_${{runner.arch}}" | tr '[:upper:]' '[:lower:]')
+        replaced_filename=${filename/"macos"/"osx"}
+        tar -czvf ${replaced_filename}.tar.gz -C ${{ env.GOBIN }}/ bb
+    
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: bb_${{github.ref_name}}_${{runner.os}}_${{runner.arch}}
-        path: ${{ env.GOBIN }}/bb
+        path: backend/*.tar.gz
+        if-no-files-found: error
