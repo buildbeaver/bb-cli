@@ -18,7 +18,7 @@ func (cli *Client) ContainerList(ctx context.Context, options types.ContainerLis
 		query.Set("all", "1")
 	}
 
-	if options.Limit > 0 {
+	if options.Limit != -1 {
 		query.Set("limit", strconv.Itoa(options.Limit))
 	}
 
@@ -35,7 +35,6 @@ func (cli *Client) ContainerList(ctx context.Context, options types.ContainerLis
 	}
 
 	if options.Filters.Len() > 0 {
-		//nolint:staticcheck // ignore SA1019 for old code
 		filterJSON, err := filters.ToParamWithVersion(cli.version, options.Filters)
 
 		if err != nil {

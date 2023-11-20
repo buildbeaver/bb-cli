@@ -217,7 +217,7 @@ func (r *ContainerManager) StartContainer(ctx context.Context, config ContainerC
 		Binds:      config.Binds,
 	}
 	nConfig := &network.NetworkingConfig{}
-	res, err := r.client.ContainerCreate(ctx, cConfig, hConfig, nConfig, nil, config.Name) // platform is optional
+	res, err := r.client.ContainerCreate(ctx, cConfig, hConfig, nConfig, config.Name) // platform is optional
 	if err != nil {
 		return "", errors.Wrap(err, "error creating container")
 	}

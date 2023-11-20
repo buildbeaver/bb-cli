@@ -45,12 +45,15 @@ require (
 
 replace github.com/chelnak/ysmrr v0.3.1-0 => github.com/buildbeaver/ysmrr v0.0.0-20231103075925-40c0b98bb556
 
+replace github.com/docker/docker => github.com/docker/docker v17.12.0-ce-rc1.0.20210128214336-420b1d36250f+incompatible
+
 require (
 	github.com/Microsoft/go-winio v0.5.2 // indirect
 	github.com/ProtonMail/go-crypto v0.0.0-20210428141323-04723f9f07d7 // indirect
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/agext/levenshtein v1.2.3 // indirect
 	github.com/apparentlymart/go-textseg/v12 v12.0.0 // indirect
+	github.com/containerd/containerd v1.6.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/distribution/reference v0.5.0 // indirect
 	github.com/docker/distribution v2.8.3+incompatible // indirect
@@ -90,6 +93,8 @@ require (
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	google.golang.org/appengine v1.6.7 // indirect
+	google.golang.org/genproto v0.0.0-20220314164441-57ef72a4c106 // indirect
+	google.golang.org/grpc v1.45.0 // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 	gopkg.in/ini.v1 v1.61.0 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect

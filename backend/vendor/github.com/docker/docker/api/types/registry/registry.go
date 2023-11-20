@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net"
 
-	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
+	"github.com/opencontainers/image-spec/specs-go/v1"
 )
 
 // ServiceConfig stores daemon registry services configuration.
@@ -45,32 +45,31 @@ func (ipnet *NetIPNet) UnmarshalJSON(b []byte) (err error) {
 // IndexInfo contains information about a registry
 //
 // RepositoryInfo Examples:
+// {
+//   "Index" : {
+//     "Name" : "docker.io",
+//     "Mirrors" : ["https://registry-2.docker.io/v1/", "https://registry-3.docker.io/v1/"],
+//     "Secure" : true,
+//     "Official" : true,
+//   },
+//   "RemoteName" : "library/debian",
+//   "LocalName" : "debian",
+//   "CanonicalName" : "docker.io/debian"
+//   "Official" : true,
+// }
 //
-//	{
-//	  "Index" : {
-//	    "Name" : "docker.io",
-//	    "Mirrors" : ["https://registry-2.docker.io/v1/", "https://registry-3.docker.io/v1/"],
-//	    "Secure" : true,
-//	    "Official" : true,
-//	  },
-//	  "RemoteName" : "library/debian",
-//	  "LocalName" : "debian",
-//	  "CanonicalName" : "docker.io/debian"
-//	  "Official" : true,
-//	}
-//
-//	{
-//	  "Index" : {
-//	    "Name" : "127.0.0.1:5000",
-//	    "Mirrors" : [],
-//	    "Secure" : false,
-//	    "Official" : false,
-//	  },
-//	  "RemoteName" : "user/repo",
-//	  "LocalName" : "127.0.0.1:5000/user/repo",
-//	  "CanonicalName" : "127.0.0.1:5000/user/repo",
-//	  "Official" : false,
-//	}
+// {
+//   "Index" : {
+//     "Name" : "127.0.0.1:5000",
+//     "Mirrors" : [],
+//     "Secure" : false,
+//     "Official" : false,
+//   },
+//   "RemoteName" : "user/repo",
+//   "LocalName" : "127.0.0.1:5000/user/repo",
+//   "CanonicalName" : "127.0.0.1:5000/user/repo",
+//   "Official" : false,
+// }
 type IndexInfo struct {
 	// Name is the name of the registry, such as "docker.io"
 	Name string
@@ -113,8 +112,8 @@ type SearchResults struct {
 type DistributionInspect struct {
 	// Descriptor contains information about the manifest, including
 	// the content addressable digest
-	Descriptor ocispec.Descriptor
+	Descriptor v1.Descriptor
 	// Platforms contains the list of platforms supported by the image,
 	// obtained by parsing the manifest
-	Platforms []ocispec.Platform
+	Platforms []v1.Platform
 }

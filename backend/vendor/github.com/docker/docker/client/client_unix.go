@@ -1,8 +1,9 @@
-//go:build !windows
-// +build !windows
+// +build linux freebsd openbsd netbsd darwin dragonfly
 
 package client // import "github.com/docker/docker/client"
 
-// DefaultDockerHost defines OS-specific default host if the DOCKER_HOST
-// (EnvOverrideHost) environment variable is unset or empty.
+// DefaultDockerHost defines os specific default if DOCKER_HOST is unset
 const DefaultDockerHost = "unix:///var/run/docker.sock"
+
+const defaultProto = "unix"
+const defaultAddr = "/var/run/docker.sock"
