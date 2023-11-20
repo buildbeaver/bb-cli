@@ -17,13 +17,20 @@ jobs:
   build:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [windows-2019, ubuntu-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+
+    env:
+      BINARY: ${{ matrix.os == 'windows-2019' && 'bb.exe' || 'bb' }}
 
     steps:
     - uses: actions/checkout@v4
       with:
         fetch-depth: 0
+
+    - name: Specify GOBIN Env Var for windows
+      if: ${{ matrix.os == 'windows-2019' }}
+      run: echo "GOBIN=${{ github.workspace }}\bin" >> $env:GITHUB_ENV
 
     - name: Set up Go
       uses: actions/setup-go@v4
@@ -33,7 +40,7 @@ jobs:
 
     - name: Install wire
       run: go install github.com/google/wire/cmd/wire@v0.5.0
-
+    
     - name: Run wire
       run: make generate-wire
 
@@ -43,16 +50,25 @@ jobs:
     - name: Build
       run: make build
 
-    # See https://github.com/actions/upload-artifact#maintaining-file-permissions-and-case-sensitive-files
-    - name: Tar files for upload
+    - name: Create filename
+      id: tar-filename
+      shell: bash
       run: |
         filename=$(echo "bb_${{github.ref_name}}_${{runner.os}}_${{runner.arch}}" | tr '[:upper:]' '[:lower:]')
-        replaced_filename=${filename/"macos"/"osx"}
-        tar -czvf ${replaced_filename}.tar.gz -C ${{ env.GOBIN }}/ bb
-    
+        replaced_filename=${filename/"_macos_"/"_osx_"}
+        replaced_filename=${replaced_filename/"_windows_"/"_win_"}
+        replaced_filename=${replaced_filename/"_v"/"_"}
+        echo "replaced_filename=$replaced_filename" >> "$GITHUB_OUTPUT"
+
+    # See https://github.com/actions/upload-artifact#maintaining-file-permissions-and-case-sensitive-files
+    - name: Tar files for upload
+      shell: bash
+      if: ${{ matrix.os != 'windows-2019' }}
+      run: tar -czvf ${{ steps.tar-filename.outputs.replaced_filename }}.tar.gz -C "${{ env.GOBIN }}" ${{ env.BINARY }}
+
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: bb_${{github.ref_name}}_${{runner.os}}_${{runner.arch}}
-        path: backend/*.tar.gz
+        name: ${{ steps.tar-filename.outputs.replaced_filename }}
+        path: ${{ matrix.os == 'windows-2019' && 'bin\bb.exe' || 'backend/*.tar.gz'}} 
         if-no-files-found: error
