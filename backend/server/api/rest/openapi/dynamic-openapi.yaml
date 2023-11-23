@@ -512,19 +512,6 @@ components:
           items:
             $ref: '#/components/schemas/Step'
 
-    JobGraph2:
-      allOf:
-        - $ref: '#/components/schemas/Job'
-        - type: object
-          required:
-            - steps
-          properties:
-            steps:
-              type: array
-              description: The set of steps within the job
-              items:
-                $ref: '#/components/schemas/Step'
-
     Job:
       type: object
       required:

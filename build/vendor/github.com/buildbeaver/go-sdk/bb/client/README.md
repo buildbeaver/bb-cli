@@ -114,8 +114,6 @@ Class | Method | HTTP request | Description
  - [JobDefinition](docs/JobDefinition.md)
  - [JobDependency](docs/JobDependency.md)
  - [JobGraph](docs/JobGraph.md)
- - [JobGraph2](docs/JobGraph2.md)
- - [JobGraph2AllOf](docs/JobGraph2AllOf.md)
  - [LogDescriptor](docs/LogDescriptor.md)
  - [NodeFQN](docs/NodeFQN.md)
  - [Repo](docs/Repo.md)

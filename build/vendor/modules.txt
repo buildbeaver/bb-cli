@@ -1,4 +1,4 @@
-# github.com/buildbeaver/go-sdk v0.0.4
+# github.com/buildbeaver/go-sdk v1.0.0
 ## explicit; go 1.18
 github.com/buildbeaver/go-sdk/bb
 github.com/buildbeaver/go-sdk/bb/client
