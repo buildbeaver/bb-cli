@@ -507,6 +507,21 @@ func (w *Workflow) WaitForJob(jobs ...string) (*JobStatusChangedEvent, error) {
 	return event, nil
 }
 
+// MustWaitForJob waits until any of the specified jobs is finished, then returns the event that notified that the
+// job is finished. This event includes the job's name, ID and final status.
+// Jobs are specified by name, including the workflow, in the format 'workflow.jobname'.
+// Any outstanding newly created jobs will be submitted to the server before waiting, via a call to MustSubmit().
+// Terminates this program if the build has finished without any event arriving that indicates one of the Jobs
+// has finished.
+func (w *Workflow) MustWaitForJob(jobs ...string) *JobStatusChangedEvent {
+	result, err := w.WaitForJob(jobs...)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return result
+}
+
 // WaitForWorkflow waits until the workflow with the specified name has completely finished.
 // Returns the workflow that has now finished; this can be used to check for failure by calling IsFailed()
 func (w *Workflow) WaitForWorkflow(workflowName ResourceName) *Workflow {

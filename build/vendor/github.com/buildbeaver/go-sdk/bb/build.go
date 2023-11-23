@@ -185,6 +185,18 @@ func (b *Build) GetBuildGraph() (*client.BuildGraph, error) {
 	return bGraph, nil
 }
 
+// MustGetBuildGraph reads the current build graph from the server. This will include all jobs and steps in the build,
+// together with their current statuses.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustGetBuildGraph() *client.BuildGraph {
+	bGraph, err := b.GetBuildGraph()
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return bGraph
+}
+
 // GetJobGraph reads a job graph from the server for the specified job ID. This will include all steps in the job,
 // together with the current job status.
 func (b *Build) GetJobGraph(jobID JobID) (*client.JobGraph, error) {
@@ -208,10 +220,14 @@ func (b *Build) GetJobGraph(jobID JobID) (*client.JobGraph, error) {
 	return jGraph, nil
 }
 
+// MustGetJobGraph reads a job graph from the server for the specified job ID. This will include all steps in the job,
+// together with the current job status.
+// Terminates this program if a persistent error occurs.
 func (b *Build) MustGetJobGraph(jobID JobID) *client.JobGraph {
 	jGraph, err := b.GetJobGraph(jobID)
 	if err != nil {
-		panic(err)
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
 	}
 	return jGraph
 }
@@ -239,6 +255,18 @@ func (b *Build) GetJob(jobID JobID) (*client.Job, error) {
 	return job, nil
 }
 
+// MustGetJob reads information about the job with the specified Job ID from the server. This will include the current
+// job status. but does not include information about the steps in the job; see GetJobGraph().
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustGetJob(jobID JobID) *client.Job {
+	job, err := b.GetJob(jobID)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return job
+}
+
 // ListArtifacts reads information about selected artifacts from the current build.
 // The first page of results will be returned in an ArtifactPage object.
 // Call Next() on the returned object to get the next page of results, or Prev() to get the previous page.
@@ -247,12 +275,38 @@ func (b *Build) ListArtifacts(workflow string, jobName string, groupName string)
 	return ListArtifacts(b, request)
 }
 
+// MustListArtifacts reads information about selected artifacts from the current build.
+// The first page of results will be returned in an ArtifactPage object.
+// Call Next() on the returned object to get the next page of results, or Prev() to get the previous page.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustListArtifacts(workflow string, jobName string, groupName string) *ArtifactPage {
+	res, err := b.ListArtifacts(workflow, jobName, groupName)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return res
+}
+
 // ListArtifactsN reads information about selected artifacts from the current build.
 // The first page of up to pageSize results will be returned in an ArtifactPage object.
 // Call Next() on the returned object to get the next page of results, or Prev() to get the previous page.
 func (b *Build) ListArtifactsN(workflow string, jobName string, groupName string, pageSize int) (*ArtifactPage, error) {
 	request := NewBuildApiListArtifactsRequest(b, workflow, jobName, groupName, pageSize)
 	return ListArtifacts(b, request)
+}
+
+// MustListArtifactsN reads information about selected artifacts from the current build.
+// The first page of up to pageSize results will be returned in an ArtifactPage object.
+// Call Next() on the returned object to get the next page of results, or Prev() to get the previous page.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustListArtifactsN(workflow string, jobName string, groupName string, pageSize int) *ArtifactPage {
+	res, err := b.ListArtifactsN(workflow, jobName, groupName, pageSize)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return res
 }
 
 // GetArtifactData returns the binary data for an artifact.
@@ -282,6 +336,17 @@ func (b *Build) GetArtifactData(artifactID string) ([]byte, error) {
 	return data, nil
 }
 
+// MustGetArtifactData returns the binary data for an artifact.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustGetArtifactData(artifactID string) []byte {
+	data, err := b.GetArtifactData(artifactID)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return data
+}
+
 // GetLogDescriptor returns a log descriptor containing information/metadata about a log (e.g. the log for a job
 // or for a step).
 func (b *Build) GetLogDescriptor(logDescriptorID string) (*client.LogDescriptor, error) {
@@ -302,6 +367,18 @@ func (b *Build) GetLogDescriptor(logDescriptorID string) (*client.LogDescriptor,
 	}
 
 	return logDescriptor, nil
+}
+
+// MustGetLogDescriptor returns a log descriptor containing information/metadata about a log (e.g. the log for a job
+// or for a step).
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustGetLogDescriptor(logDescriptorID string) *client.LogDescriptor {
+	res, err := b.GetLogDescriptor(logDescriptorID)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return res
 }
 
 // ReadLogText returns a reader for fetching the data for a log in plain text (e.g. the log for a job or for a step).
@@ -335,6 +412,18 @@ func (b *Build) ReadLogText(logDescriptorID string, expand bool) (io.ReadCloser,
 	return logFile, nil
 }
 
+// MustReadLogText returns a reader for fetching the data for a log in plain text (e.g. the log for a job or for a step).
+// If expand is true then nested logs will be expanded and returned.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustReadLogText(logDescriptorID string, expand bool) io.ReadCloser {
+	reader, err := b.ReadLogText(logDescriptorID, expand)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return reader
+}
+
 // ReadLogData returns a reader for fetching data for a log (e.g. the log for a job or for a step) as a series of
 // JSON log entries. If expand is true then nested logs will be expanded and returned.
 func (b *Build) ReadLogData(logDescriptorID string, expand bool) (io.ReadCloser, error) {
@@ -364,4 +453,16 @@ func (b *Build) ReadLogData(logDescriptorID string, expand bool) (io.ReadCloser,
 	}
 
 	return logFile, nil
+}
+
+// MustReadLogData returns a reader for fetching data for a log (e.g. the log for a job or for a step) as a series of
+// JSON log entries. If expand is true then nested logs will be expanded and returned.
+// Terminates this program if a persistent error occurs.
+func (b *Build) MustReadLogData(logDescriptorID string, expand bool) io.ReadCloser {
+	reader, err := b.ReadLogData(logDescriptorID, expand)
+	if err != nil {
+		Log(LogLevelFatal, err.Error())
+		os.Exit(1)
+	}
+	return reader
 }

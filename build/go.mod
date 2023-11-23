@@ -2,7 +2,7 @@ module github.com/buildbeaver/build
 
 go 1.18
 
-require github.com/buildbeaver/go-sdk v0.0.4
+require github.com/buildbeaver/go-sdk v1.0.0
 
 require (
 	github.com/hashicorp/go-cleanhttp v0.5.2 // indirect
