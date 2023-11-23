@@ -1,3 +1,9 @@
+<p align="center">
+  <img width="240" height="240" src="https://github.com/buildbeaver/go-sdk/assets/1029312/e2276e36-8b3f-4e7d-b9b4-a1e384b28ac1">
+</p>
+
+---
+
 # BuildBeaver Command Line Tool
 
 This repo contains the BuildBeaver free and open-source command-line tool.
