@@ -35,12 +35,29 @@ func (r *Runtime) Stop(ctx context.Context) error {
 // Exec executes a command inside the runtime.
 // Start must have been called before calling Exec.
 func (r *Runtime) Exec(ctx context.Context, config runtime.ExecConfig) error {
-	scriptPath, err := runtime.WriteScript(r.config.StagingDir, config.Name, config.Commands)
+	hostOS := runtime.GetHostOS()
+
+	scriptName := config.Name
+	if hostOS == runtime.OSWindows {
+		// Windows cmd.exe requires scripts to end in ".bat", or they won't be executed
+		scriptName += ".bat"
+	}
+
+	scriptPath, err := runtime.WriteScript(r.config.StagingDir, scriptName, config.Commands)
 	if err != nil {
 		return err
 	}
-	shell := runtime.ShellOrDefault(runtime.GetHostOS(), r.config.ShellOrNil)
-	cmd := exec.CommandContext(ctx, shell, scriptPath)
+	shell := runtime.ShellOrDefault(hostOS, r.config.ShellOrNil)
+
+	var cmd *exec.Cmd
+	if hostOS == runtime.OSWindows {
+		// Windows cmd.exe requires the /C option to run commands, as well as some other recommended options.
+		// NOTE that "/C" must be the last option, immediately before the actual command.
+		cmd = exec.CommandContext(ctx, shell, "/D", "/E:ON", "/V:OFF", "/S", "/C", scriptPath)
+	} else {
+		cmd = exec.CommandContext(ctx, shell, scriptPath)
+	}
+
 	cmd.Dir = r.config.WorkspaceDir
 	cmd.Env = config.Env
 	cmd.Stdout = config.Stdout
