@@ -3,6 +3,7 @@ package exec
 import (
 	"context"
 	"fmt"
+	"os"
 	"os/exec"
 
 	"github.com/buildbeaver/buildbeaver/runner/runtime"
@@ -59,9 +60,14 @@ func (r *Runtime) Exec(ctx context.Context, config runtime.ExecConfig) error {
 	}
 
 	cmd.Dir = r.config.WorkspaceDir
-	cmd.Env = config.Env
 	cmd.Stdout = config.Stdout
 	cmd.Stderr = config.Stderr
+
+	// Keep the existing PATH env variable so that commands can still be found and run.
+	// Do not keep all env variables since secrets are supplied in env vars when using the command-line tool.
+	pathEnv := os.Getenv("PATH")
+	cmd.Env = append(config.Env, "PATH="+pathEnv)
+
 	err = cmd.Run()
 	if err != nil {
 		return fmt.Errorf("error running command: %w", err)
