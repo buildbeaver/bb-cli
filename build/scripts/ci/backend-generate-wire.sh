@@ -6,10 +6,10 @@ fi
 
 ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
 . "${ROOT_DIR}/build/scripts/lib/go-env.sh"
-check_deps "wire"
+check_deps "wire.exe"
 
 for wire_file in backend/*/app/wire.go; do
   pushd "$(dirname "${wire_file}")"
-    wire
+    wire.exe
   popd
 done

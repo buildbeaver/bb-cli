@@ -6,7 +6,7 @@ fi
 
 ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
 . "${ROOT_DIR}/build/scripts/lib/go-env.sh"
-check_deps "go"
+check_deps "go.exe"
 
 # Specify our ldflags for injecting our version information into our binaries.
 PKG="github.com/buildbeaver/bb"
@@ -17,9 +17,11 @@ GO_LDFLAGS="-ldflags=${VERSION_VAR}"
 
 for cmd_dir in backend/*/cmd/*; do
   bin_name="$(basename "${cmd_dir}")"
-  bin_out="${GOBIN}/${bin_name}"
+  # MinGW shows the current dir as /mnt/c/... but if we pass this to go.exe it won't work;
+  # hack a relative path in for the output directory instead, to put it in the root of the repo
+  bin_out="../../../../output/${bin_name}.exe"
   pushd "${cmd_dir}"
     echo "Building: ${bin_name} > ${bin_out}"
-    go build "${GO_LDFLAGS}" -mod=vendor -o "${bin_out}" .
+    go.exe build "${GO_LDFLAGS}" -mod=vendor -o "${bin_out}" .
   popd
 done

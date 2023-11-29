@@ -4,7 +4,7 @@ if [ -n "${BB_DEBUG}" ]; then
   set -x
 fi
 
-/usr/local/bin/docker-entrypoint.sh generate \
+openapi-generator-cli generate \
   -i "backend/server/api/rest/openapi/$1" \
   -g "$2" \
   --additional-properties disallowAdditionalPropertiesIfNotPresent=false \

@@ -1,17 +1,25 @@
-version: "0.2"
+version: "0.3"
 
 jobs:
-  - name: generate-jobs
-    docker:
-      image: golang:1.18.10
-      pull: if-not-exists
-      shell: /bin/bash
+  - name: dynamic-build
+    description: Compile and run the dynamic build Go-based job
+    type: exec
     steps:
       - name: compile
         commands: |
-          . build/scripts/lib/go-env.sh        
-          cd build && go build -mod=vendor -o "${GOBIN}/dynamic-build" .
-      - name: execute
+          @echo off
+          set BUILD_DIR=%cd%\build\output
+          set GODIR=%BUILD_DIR%\go
+          set GOBIN=%GODIR%\bin
+          set GOCACHE=%GODIR%\cache
+          mkdir %GOCACHE%
+          mkdir %GOBIN%
+          echo Building: %GOBIN%\builder
+          cd build
+          "C:\Program Files\Go\bin\go.exe" build -mod=vendor -o "%GOBIN%\builder.exe" .
+      - name: run-dynamic-build-job
         commands: |
-          . build/scripts/lib/go-env.sh
-          "${GOBIN}/dynamic-build"
+          @echo off
+          set GOBIN=%cd%\build\output\go\bin
+          echo "Running: %GOBIN%\builder.exe"
+          %GOBIN%\builder.exe

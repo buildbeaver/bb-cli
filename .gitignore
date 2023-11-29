@@ -1,5 +1,6 @@
 .build/
 build/output/
+output/
 .idea/
 wire_gen.go
 .DS_Store
