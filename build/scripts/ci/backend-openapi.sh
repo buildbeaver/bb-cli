@@ -4,7 +4,11 @@ if [ -n "${BB_DEBUG}" ]; then
   set -x
 fi
 
-/usr/local/bin/docker-entrypoint.sh generate \
+ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
+. "${ROOT_DIR}/build/scripts/lib/env.sh"
+check_deps "openapi-generator"
+
+openapi-generator generate \
   -i "backend/server/api/rest/openapi/$1" \
   -g "$2" \
   --additional-properties disallowAdditionalPropertiesIfNotPresent=false \

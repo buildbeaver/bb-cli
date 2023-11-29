@@ -1,11 +1,8 @@
-version: "0.2"
+version: "0.3"
 
 jobs:
   - name: generate-jobs
-    docker:
-      image: golang:1.18.10
-      pull: if-not-exists
-      shell: /bin/bash
+    type: exec
     steps:
       - name: compile
         commands: |
