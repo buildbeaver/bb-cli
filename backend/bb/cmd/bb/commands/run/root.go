@@ -34,13 +34,19 @@ func init() {
 		"f",
 		false,
 		"Force all jobs to re-run by ignoring fingerprints")
+	runRootCmd.PersistentFlags().BoolVar(
+		&runCmdConfig.skipCleanup,
+		"skip-cleanup",
+		false,
+		"Do not attempt to clean up resources (including docker containers and networks) left over from previous runs")
 	commands.RootCmd.AddCommand(runRootCmd)
 }
 
 var runCmdConfig = struct {
-	workDir string
-	verbose bool
-	force   bool
+	workDir     string
+	verbose     bool
+	force       bool
+	skipCleanup bool
 }{}
 
 var runRootCmd = &cobra.Command{
@@ -87,7 +93,9 @@ var runRootCmd = &cobra.Command{
 		}
 		defer cleanup()
 
-		utils.CleanUpOldResources(bb)
+		if !runCmdConfig.skipCleanup {
+			utils.CleanUpOldResources(bb, runCmdConfig.verbose)
+		}
 
 		err = bb.Backend.Start()
 		if err != nil {

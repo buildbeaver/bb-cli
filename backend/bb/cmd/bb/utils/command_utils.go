@@ -50,7 +50,7 @@ func HomeifyPath(path string) (string, error) {
 }
 
 // CleanUpOldResources cleans up containers and other resources left over from previous runs.
-func CleanUpOldResources(bb *app.App) {
+func CleanUpOldResources(bb *app.App, verbose bool) {
 	timeout := time.Second * 30
 
 	// Use a special non-standard prefix for Docker names for bb, so the CleanUp function doesn't try to clean up
@@ -63,7 +63,11 @@ func CleanUpOldResources(bb *app.App) {
 	err := executor.CleanUp(timeout)
 	if err != nil {
 		// Log and ignore errors during cleanup
-		fmt.Fprintf(os.Stdout, "Warning: errors during cleanup: %s\r\n", err.Error())
+		if verbose {
+			fmt.Fprintf(os.Stdout, "Warning: unable to clean up resources. Use --skip-cleanup flag to skip this check.\r\n%s\r\n", err.Error())
+		} else {
+			fmt.Fprintf(os.Stdout, "Warning: unable to clean up resources. Use --skip-cleanup flag to skip this check, or -v flag to see errors.\r\n")
+		}
 	}
 }
 

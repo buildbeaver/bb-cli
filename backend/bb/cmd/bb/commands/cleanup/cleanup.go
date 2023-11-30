@@ -71,7 +71,7 @@ var cleanupRootCmd = &cobra.Command{
 		}
 		defer cleanup()
 
-		utils.CleanUpOldResources(bb)
+		utils.CleanUpOldResources(bb, true)
 
 		return nil
 	},
