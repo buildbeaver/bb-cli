@@ -7,7 +7,7 @@ The BuildBeaver CLI can be built on Linux, Mac or Windows.
 If building on Windows, install:
 
 1. **gcc**: Install the GCC compiler. This can be installed as part of mingw e.g. `choco install mingw --version 5.4.0`.
-   If using Go 1.18 or 1.19 on Windows then an older version of gcc is required; version 5.4.0 recommended.
+   If using Go 1.19 on Windows then an older version of gcc is required; version 5.4.0 recommended.
    (See Golang [Issue 35006]( https://github.com/golang/go/issues/35006) and [Issue 51007](https://github.com/golang/go/issues/51007)
    for details; this was fixed in Go 1.20.)
 
@@ -15,7 +15,7 @@ If building on Windows, install:
 
 For all platforms (including Windows), install:
 
-3. **Go 1.18** or later: 1.18 recommended but newer versions should work.
+3. **Go 1.19** or later: 1.19 recommended but newer versions should work.
    See [Go Download and Install](https://go.dev/doc/install). 
  
 4. **Docker**: recommended for testing and required for using bb to build itself.
