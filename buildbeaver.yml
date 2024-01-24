@@ -9,6 +9,7 @@ jobs:
     steps:
       - name: compile
         commands: |
+          git config --global --add safe.directory $(pwd)
           . build/scripts/lib/go-env.sh        
           cd build && go build -mod=vendor -o "${GOBIN}/dynamic-build" .
       - name: execute

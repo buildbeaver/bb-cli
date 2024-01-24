@@ -4,8 +4,8 @@ if [ -n "${BB_DEBUG}" ]; then
   set -x
 fi
 
-ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
-. "${ROOT_DIR}/build/scripts/lib/go-env.sh"
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+. "${SCRIPT_DIR}/../lib/go-env.sh"
 check_deps "wire"
 
 for wire_file in backend/*/app/wire.go; do

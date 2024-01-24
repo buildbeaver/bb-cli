@@ -9,6 +9,7 @@ if [ ! "$(which git)" ]; then
   exit 1
 fi
 
+git config --global --add safe.directory $(pwd)
 GIT_DESCRIBE="$(git describe --long --tags --always)"
 if [[ ! $GIT_DESCRIBE =~ ^v?[0-9+].[0-9+].[0-9+].*$ ]]; then
   echo "Unknown tag format."
