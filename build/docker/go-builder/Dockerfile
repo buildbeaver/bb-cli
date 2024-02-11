@@ -1,4 +1,4 @@
-FROM golang:1.18.10
+FROM golang:1.19
 MAINTAINER NA
 
 RUN apt-get update

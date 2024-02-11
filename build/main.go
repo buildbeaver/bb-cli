@@ -43,7 +43,6 @@ func submitBaseJobs(w *bb.Workflow) error {
 			Name("go-builder").
 			Commands(
 				"apk add bash git aws-cli",
-				"git config --global --add safe.directory $(pwd)",
 				// Use -p option to push docker image to registry, when using multiple runners
 				//"./build/scripts/build-docker.sh -t $BB_JOB_FINGERPRINT -p go-builder")).
 				"./build/scripts/build-docker.sh -t $BB_JOB_FINGERPRINT go-builder")).

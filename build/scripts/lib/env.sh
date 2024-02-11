@@ -7,7 +7,8 @@ fi
 AWS_DEFAULT_REGION=us-west-2
 export AWS_DEFAULT_REGION
 
-REPO_DIR=$(realpath "$(git rev-parse --show-toplevel)")
+ENV_SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+REPO_DIR=$(realpath "${ENV_SCRIPT_DIR}/../../../")
 export REPO_DIR
 
 BUILD_DIR="${REPO_DIR}/build/output"

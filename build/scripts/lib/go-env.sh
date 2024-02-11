@@ -4,8 +4,8 @@ if [ -n "${BB_DEBUG}" ]; then
   set -x
 fi
 
-ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
-. "${ROOT_DIR}/build/scripts/lib/env.sh"
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+. "${SCRIPT_DIR}/env.sh"
 
 export GODIR="${BUILD_DIR}/go"
 export GOBIN="${GODIR}/bin"

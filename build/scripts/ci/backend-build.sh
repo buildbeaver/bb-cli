@@ -4,14 +4,14 @@ if [ -n "${BB_DEBUG}" ]; then
   set -x
 fi
 
-ROOT_DIR=$(realpath "$(git rev-parse --show-toplevel)")
-. "${ROOT_DIR}/build/scripts/lib/go-env.sh"
+SCRIPT_DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+. "${SCRIPT_DIR}/../lib/go-env.sh"
 check_deps "go"
 
 # Specify our ldflags for injecting our version information into our binaries.
 PKG="github.com/buildbeaver/bb"
-VERSION_INFO=$(${ROOT_DIR}/build/scripts/version-info.sh)
-GIT_SHA_SHORT=$(${ROOT_DIR}/build/scripts/version-info.sh sha-short)
+VERSION_INFO=$(${SCRIPT_DIR}/../version-info.sh)
+GIT_SHA_SHORT=$(${SCRIPT_DIR}/../version-info.sh sha-short)
 VERSION_VAR="-X '${PKG}/common/version.VERSION=${VERSION_INFO}' -X '${PKG}/common/version.GITCOMMIT=${GIT_SHA_SHORT}'"
 GO_LDFLAGS="-ldflags=${VERSION_VAR}"
 
